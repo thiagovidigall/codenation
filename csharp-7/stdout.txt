@@ -10,4 +10,4 @@ Results File: C:\Users\Vidigal\codenation\csharp-7\Source.TestSubmission\results
 Execu‡Æo de Teste Bem-sucedida.
 Total de testes: 52
      Aprovados: 52
-Tempo total: 3,0775 Segundos
+Tempo total: 2,8766 Segundos
