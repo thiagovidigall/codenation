@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "+ub6T7AXyghwyl57d7EOKNzq+Y6C8r/CqP2B0kT8uzTgazOoFSPFdIW25MCb3LHIjSxBG736Jmc0ceOiXYNWIA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Vidigal\\codenation\\csharp-0\\Source\\Source.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Vidigal\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Vidigal\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
