@@ -32,6 +32,8 @@ namespace Codenation.Challenge.Models
         [Column("created_at")]
         public DateTime Created_At { get; set; }
 
+        public Challenge Challenge { get; set; }
+
         //propriedade de navegação
         public ICollection<Candidate> Candidates { get; set; }
 

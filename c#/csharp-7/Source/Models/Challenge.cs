@@ -29,7 +29,7 @@ namespace Codenation.Challenge.Models
         [Column("created_at")]
         public DateTime Created_At { get; set; }
 
-        //propriedade de navegação
+
         public ICollection<SubMission> SubMissions { get; set; }
         public ICollection<Acceleration> Accelerations { get; set; }
 

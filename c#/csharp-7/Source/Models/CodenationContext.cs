@@ -21,11 +21,18 @@ namespace Codenation.Challenge.Models
         {
             modelBuilder.Entity<SubMission>().HasKey(x => new { x.User_Id, x.Challenge_Id });
             modelBuilder.Entity<Candidate>().HasKey(x => new { x.User_Id, x.Acceleration_Id, x.Company_Id });
+            modelBuilder.Entity<Acceleration>()
+                .HasOne<Challenge>(a => a.Challenge)
+                .WithMany(c => c.Accelerations)
+                .HasForeignKey(a => a.Challenge_Id)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Acceleration_Challenge");
         }
 
-        public CodenationContext(DbContextOptions<CodenationContext> options) : base(options)
-        {             
-            Database.EnsureCreated();
-        }
+        //public CodenationContext(DbContextOptions<CodenationContext> options) : base(options)
+        //public CodenationContext()
+        //{             
+        //    Database.EnsureCreated();
+        //}
     }
 }
