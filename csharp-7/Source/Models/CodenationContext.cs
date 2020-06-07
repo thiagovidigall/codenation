@@ -23,10 +23,10 @@ namespace Codenation.Challenge.Models
             modelBuilder.Entity<Submission>(e => {
                 
                 e.ToTable(nameof(Submission).ToLower());
-                e.Property(x => x.User_Id).HasColumnName("user_id");
-                e.Property(x => x.Challenge_Id).HasColumnName("challenge_id");
-                e.Property(x => x.Score).HasColumnName("score").HasColumnType("decimal(9,2)");
-                e.Property(x => x.Created_At).HasColumnName("created_at");
+                e.Property(x => x.User_Id).HasColumnName("user_id").IsRequired();
+                e.Property(x => x.Challenge_Id).HasColumnName("challenge_id").IsRequired();
+                e.Property(x => x.Score).HasColumnName("score").HasColumnType("decimal(9,2)").IsRequired();
+                e.Property(x => x.Created_At).HasColumnName("created_at").IsRequired();
 
                 e.HasKey(x => new { x.User_Id, x.Challenge_Id });
 
@@ -38,11 +38,11 @@ namespace Codenation.Challenge.Models
             modelBuilder.Entity<Candidate>(e =>
             {
                 e.ToTable(nameof(Candidate).ToLower());
-                e.Property(x => x.User_Id).IsRequired().HasColumnName("user_id");
-                e.Property(x => x.Acceleration_Id).IsRequired().HasColumnName("acceleration_id");
-                e.Property(x => x.Company_Id).IsRequired().HasColumnName("company_id");
-                e.Property(x => x.Status).IsRequired().HasColumnName("status"); ;
-                e.Property(x => x.Created_At).IsRequired().HasColumnName("created_at"); ;
+                e.Property(x => x.User_Id).HasColumnName("user_id").IsRequired();
+                e.Property(x => x.Acceleration_Id).HasColumnName("acceleration_id").IsRequired();
+                e.Property(x => x.Company_Id).HasColumnName("company_id").IsRequired();
+                e.Property(x => x.Status).HasColumnName("status").IsRequired();
+                e.Property(x => x.Created_At).HasColumnName("created_at").IsRequired();
 
 
                 e.HasKey(x => new { x.User_Id, x.Acceleration_Id, x.Company_Id });
@@ -56,11 +56,11 @@ namespace Codenation.Challenge.Models
             modelBuilder.Entity<Acceleration>(e =>
             {
                 e.ToTable(nameof(Acceleration).ToLower());
-                e.Property(x => x.Id).IsRequired().HasColumnName("id");
-                e.Property(x => x.Challenge_Id).IsRequired().HasColumnName("challenge_id");
-                e.Property(x => x.Name).IsRequired().HasColumnName("name").HasMaxLength(100);
-                e.Property(x => x.Slug).IsRequired().HasColumnName("slug").HasMaxLength(50);
-                e.Property(x => x.Created_At).IsRequired().HasColumnName("created_at");
+                e.Property(x => x.Id).HasColumnName("id").IsRequired();
+                e.Property(x => x.Challenge_Id).HasColumnName("challenge_id").IsRequired();
+                e.Property(x => x.Name).HasColumnName("name").HasMaxLength(100).IsRequired();
+                e.Property(x => x.Slug).HasColumnName("slug").HasMaxLength(50).IsRequired();
+                e.Property(x => x.Created_At).IsRequired().HasColumnName("created_at").IsRequired();
 
                 e.HasKey(x => x.Id );
                 e.HasOne<Challenge>(x => x.Challenge).WithMany(x => x.Accelerations).HasForeignKey(a => a.Challenge_Id).IsRequired();
