@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Codenation.Challenge.Models;
 
 namespace Codenation.Challenge.Services
@@ -15,24 +16,24 @@ namespace Codenation.Challenge.Services
         public IList<Submission> FindByChallengeIdAndAccelerationId(int challengeId, int accelerationId)
         {
             var query = (from su in _context.Submissions
-                         join ch in _context.Challenges on su.ChallengeId equals ch.Id
-                         join ac in _context.Accelerations on ch.Id equals ac.ChallengeId
-                         where ac.Id == accelerationId && ac.ChallengeId == challengeId
-                         select su);
+                          join ch in _context.Challenges on su.ChallengeId equals ch.Id
+                          join us in _context.Users on su.UserId equals us.Id
+                          join ac in _context.Accelerations on ch.Id equals ac.ChallengeId
+                          where ch.Id == challengeId && ac.Id == accelerationId
+                          select su);
 
-            return query.Distinct().ToList();
+            return query.ToList();
         }
 
         public decimal FindHigherScoreByChallengeId(int challengeId)
         {
-            decimal score = _context.Submissions.Join(
-                            _context.Challenges,
-                            s => s.ChallengeId,
-                            c => c.Id,
-                            (s, c) => new { s, c }
-                        ).OrderByDescending(x => x.s.Score).Select(x => x.s.Score).First();                            
+            var query1 = (from su in _context.Submissions
+                         join ch in _context.Challenges on su.ChallengeId equals ch.Id
+                         join us in _context.Users on su.UserId equals us.Id
+                         where ch.Id == challengeId
+                         select su.Score).OrderByDescending(x => x).ToList();
 
-            return score;
+            return query1.First();
         }
 
         public Submission Save(Submission submission)
@@ -43,7 +44,9 @@ namespace Codenation.Challenge.Services
             if (su == null)
                 _context.Add(submission);
             else
-                _context.Update(submission);
+                _context.Entry(_context.Submissions
+                    .FirstOrDefault(x => x.UserId == submission.UserId && x.ChallengeId == submission.ChallengeId))
+                    .CurrentValues.SetValues(submission);
 
             _context.SaveChanges();
             return submission;

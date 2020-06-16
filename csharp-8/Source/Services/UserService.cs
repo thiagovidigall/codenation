@@ -16,13 +16,14 @@ namespace Codenation.Challenge.Services
 
         public IList<User> FindByAccelerationName(string name)
         {
-            var query = (from us in _context.Users
-                         join ca in _context.Candidates on us.Id equals ca.UserId
-                         join ac in _context.Accelerations on ca.AccelerationId equals ac.Id
-                         where ac.Name == name
-                         select us);
+            var query = (from ca in _context.Candidates
+                                  join us in _context.Users on ca.UserId equals us.Id
+                                  join ac in _context.Accelerations on ca.AccelerationId equals ac.Id
+                                  join co in _context.Companies on ca.CompanyId equals co.Id
+                                  select us);
 
-            return query.Distinct().ToList();
+
+            return query.ToList();
         }
 
         public IList<User> FindByCompanyId(int companyId)

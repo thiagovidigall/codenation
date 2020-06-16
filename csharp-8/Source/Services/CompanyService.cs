@@ -14,13 +14,14 @@ namespace Codenation.Challenge.Services
 
         public IList<Company> FindByAccelerationId(int accelerationId)
         {
-            var query = (from co in _context.Companies
-                         join ca in _context.Candidates on co.Id equals ca.CompanyId
+            var query = (from ca in _context.Candidates
+                         join us in _context.Users on ca.UserId equals us.Id
                          join ac in _context.Accelerations on ca.AccelerationId equals ac.Id
+                         join co in _context.Companies on ca.CompanyId equals co.Id
                          where ac.Id == accelerationId
                          select co);
 
-            return query.Distinct().ToList();
+            return query.ToList();
         }
 
         public Company FindById(int id)
@@ -31,13 +32,14 @@ namespace Codenation.Challenge.Services
 
         public IList<Company> FindByUserId(int userId)
         {
-            var query = (from co in _context.Companies
-                         join ca in _context.Candidates on co.Id equals ca.CompanyId
+            var query = (from ca in _context.Candidates                         
                          join us in _context.Users on ca.UserId equals us.Id
+                         join ac in _context.Accelerations on ca.AccelerationId equals ac.Id
+                         join co in _context.Companies on ca.CompanyId equals co.Id
                          where us.Id == userId
                          select co);
 
-            return query.Distinct().ToList();
+            return query.ToList();
         }
 
         public Company Save(Company company)

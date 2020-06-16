@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Codenation.Challenge.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Codenation.Challenge.Services
 {
@@ -43,15 +44,18 @@ namespace Codenation.Challenge.Services
         }
 
         public Candidate Save(Candidate candidate)
-        {
-            Candidate ca = _context.Candidates.FirstOrDefault(x => x.UserId == candidate.UserId && 
-                x.AccelerationId == candidate.AccelerationId && 
+        {          
+            Candidate ca = _context.Candidates
+                .FirstOrDefault(x => x.UserId == candidate.UserId &&
+                x.AccelerationId == candidate.AccelerationId &&
                 x.CompanyId == candidate.CompanyId);
-            
+
             if (ca == null)
                 _context.Add(candidate);
             else
-                _context.Update(candidate);
+                _context.Entry(_context.Candidates
+                    .FirstOrDefault(x => x.UserId == candidate.UserId && x.AccelerationId == candidate.AccelerationId && x.CompanyId == candidate.CompanyId))
+                    .CurrentValues.SetValues(candidate);
 
             _context.SaveChanges();
             return candidate;
