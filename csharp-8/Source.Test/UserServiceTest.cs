@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using Codenation.Challenge.Models;
 using Codenation.Challenge.Services;
+using System.Linq;
 
 namespace Codenation.Challenge
 {
@@ -47,7 +48,7 @@ namespace Codenation.Challenge
 
                 Assert.NotEqual(0, actual.Id);
             }
-        }    
+        }       
 
     }
 }
