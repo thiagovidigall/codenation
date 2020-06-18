@@ -16,21 +16,19 @@ namespace Codenation.Challenge.Services
         public IList<Submission> FindByChallengeIdAndAccelerationId(int challengeId, int accelerationId)
         {
             var query = (from su in _context.Submissions
-                          join ch in _context.Challenges on su.ChallengeId equals ch.Id
-                          join us in _context.Users on su.UserId equals us.Id
-                          join ac in _context.Accelerations on ch.Id equals ac.ChallengeId
-                          where ch.Id == challengeId && ac.Id == accelerationId
+                         join us in _context.Users on su.UserId equals us.Id
+                         join ca in _context.Candidates on us.Id equals ca.UserId
+                          where su.ChallengeId == challengeId && ca.AccelerationId == accelerationId
                           select su);
 
-            return query.ToList();
+            return query.Distinct().ToList();
         }
 
         public decimal FindHigherScoreByChallengeId(int challengeId)
         {
             var query1 = (from su in _context.Submissions
                          join ch in _context.Challenges on su.ChallengeId equals ch.Id
-                         join us in _context.Users on su.UserId equals us.Id
-                         where ch.Id == challengeId
+                         where su.ChallengeId == challengeId
                          select su.Score).OrderByDescending(x => x).ToList();
 
             return query1.First();

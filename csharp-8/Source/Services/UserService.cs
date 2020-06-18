@@ -19,7 +19,7 @@ namespace Codenation.Challenge.Services
             var query = (from ca in _context.Candidates
                                   join us in _context.Users on ca.UserId equals us.Id
                                   join ac in _context.Accelerations on ca.AccelerationId equals ac.Id
-                                  join co in _context.Companies on ca.CompanyId equals co.Id
+                                  where ac.Name == name
                                   select us);
 
 

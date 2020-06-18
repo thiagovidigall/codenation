@@ -15,10 +15,8 @@ namespace Codenation.Challenge.Services
         public IList<Company> FindByAccelerationId(int accelerationId)
         {
             var query = (from ca in _context.Candidates
-                         join us in _context.Users on ca.UserId equals us.Id
-                         join ac in _context.Accelerations on ca.AccelerationId equals ac.Id
                          join co in _context.Companies on ca.CompanyId equals co.Id
-                         where ac.Id == accelerationId
+                         where ca.AccelerationId == accelerationId
                          select co);
 
             return query.ToList();
@@ -33,11 +31,9 @@ namespace Codenation.Challenge.Services
         public IList<Company> FindByUserId(int userId)
         {
             var query = (from ca in _context.Candidates                         
-                         join us in _context.Users on ca.UserId equals us.Id
-                         join ac in _context.Accelerations on ca.AccelerationId equals ac.Id
                          join co in _context.Companies on ca.CompanyId equals co.Id
-                         where us.Id == userId
-                         select co);
+                         where ca.UserId == userId
+                         select co).Distinct();
 
             return query.ToList();
         }
