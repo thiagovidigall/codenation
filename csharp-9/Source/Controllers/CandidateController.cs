@@ -24,7 +24,7 @@ namespace Codenation.Challenge.Controllers
 
         // GET api/candidate
         [HttpGet]
-        public ActionResult<IEnumerable<SubmissionDTO>> GetAll(int? companyId = null, int? accelerationId = null)
+        public ActionResult<IEnumerable<CandidateDTO>> GetAll(int? companyId = null, int? accelerationId = null)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Codenation.Challenge.Controllers
                 if (companyId != null)
                     candidates = _service.FindByCompanyId((int)companyId);
 
-                var result = _mapper.Map<List<SubmissionDTO>>(candidates);
+                var result = _mapper.Map<List<CandidateDTO>>(candidates);
                 return Ok(result);
             }
             catch (Exception)
@@ -51,12 +51,12 @@ namespace Codenation.Challenge.Controllers
         // GET api/candidate/{userId}/{accelerationId}/{companyId}
         [HttpGet]
         [Route("api/candidate/{userId}/{accelerationId}/{companyId}")]
-        public ActionResult<SubmissionDTO> Get(int userId, int accelerationId, int companyId)
+        public ActionResult<CandidateDTO> Get(int userId, int accelerationId, int companyId)
         {
             try
             {
                 var candidate = _service.FindById(userId, accelerationId, companyId);
-                var result = _mapper.Map<SubmissionDTO>(candidate);
+                var result = _mapper.Map<CandidateDTO>(candidate);
                 if (result == null)
                 {
                     return NotFound();
@@ -72,7 +72,7 @@ namespace Codenation.Challenge.Controllers
 
         // POST api/candidate
         [HttpPost]
-        public ActionResult<SubmissionDTO> Post([FromBody] SubmissionDTO value)
+        public ActionResult<CandidateDTO> Post([FromBody] CandidateDTO value)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Codenation.Challenge.Controllers
                     return BadRequest();
 
                 _service.Save(candidate);
-                var result = _mapper.Map<SubmissionDTO>(candidate);
+                var result = _mapper.Map<CandidateDTO>(candidate);
                 return Ok(result);
             }
             catch (Exception)

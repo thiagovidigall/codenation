@@ -46,20 +46,14 @@ namespace Codenation.Challenge.Controllers
 
         [HttpGet]
         [Route("api/submission/higherScore")]
-        public ActionResult<SubmissionDTO> Get(int challengeId)
+        public ActionResult<SubmissionDTO> GetHigherScore(int challengeId)
         {
             try
             {
                 if (challengeId == 0)
                     return NoContent();
 
-                var submission = _service.FindHigherScoreByChallengeId(challengeId);
-                var result = _mapper.Map<SubmissionDTO>(submission);
-                if (result == null)
-                {
-                    return NotFound();
-                }
-
+                var result = _service.FindHigherScoreByChallengeId(challengeId);
                 return Ok(result);
             }
             catch (Exception)
