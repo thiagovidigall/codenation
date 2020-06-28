@@ -13,5 +13,83 @@ namespace Codenation.Challenge.Controllers
     [ApiController]
     public class CandidateController : ControllerBase
     {
+        IMapper _mapper;
+        ICandidateService _service;
+
+        public CandidateController(ICandidateService service, IMapper mapper)
+        {
+            _mapper = mapper;
+            _service = service;
+        }
+
+        // GET api/candidate
+        [HttpGet]
+        public ActionResult<IEnumerable<SubmissionDTO>> GetAll(int? companyId = null, int? accelerationId = null)
+        {
+            try
+            {
+                IList<Candidate> candidates = new List<Candidate>();
+
+                if ((accelerationId == null && companyId == null) || (accelerationId != null && companyId != null))
+                    return NoContent();
+
+                if (accelerationId != null)
+                    candidates = _service.FindByAccelerationId((int)accelerationId);
+
+                if (companyId != null)
+                    candidates = _service.FindByCompanyId((int)companyId);
+
+                var result = _mapper.Map<List<SubmissionDTO>>(candidates);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        // GET api/candidate/{userId}/{accelerationId}/{companyId}
+        [HttpGet]
+        [Route("api/candidate/{userId}/{accelerationId}/{companyId}")]
+        public ActionResult<SubmissionDTO> Get(int userId, int accelerationId, int companyId)
+        {
+            try
+            {
+                var candidate = _service.FindById(userId, accelerationId, companyId);
+                var result = _mapper.Map<SubmissionDTO>(candidate);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        // POST api/candidate
+        [HttpPost]
+        public ActionResult<SubmissionDTO> Post([FromBody] SubmissionDTO value)
+        {
+            try
+            {
+                Candidate candidate = _mapper.Map<Candidate>(value);
+
+                if (candidate == null)
+                    return BadRequest();
+
+                _service.Save(candidate);
+                var result = _mapper.Map<SubmissionDTO>(candidate);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
     }
 }

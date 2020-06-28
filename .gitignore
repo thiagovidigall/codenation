@@ -359,3 +359,9 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /app
+/csharp-9/Source.Test/ChallengeDTOIdComparer.cs
+/csharp-9/Source.Test/ChallengeControllerTest.cs
+/csharp-9/Source.Test/CompanyDTOIdComparer.cs
+/csharp-9/Source.Test/CompanyControllerTest.cs
+/csharp-9/Source.Test/UserDTOIdComparer - Copy (3).cs
+/csharp-9/Source.Test/UserDTOIdComparer - Copy (4).cs

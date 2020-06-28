@@ -25,5 +25,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>      
   </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Remove="ChallengeControllerTest.cs" />
+    <Compile Remove="ChallengeDTOIdComparer.cs" />
+    <Compile Remove="CompanyControllerTest.cs" />
+    <Compile Remove="CompanyDTOIdComparer.cs" />
+    <Compile Remove="UserDTOIdComparer - Copy %283%29.cs" />
+    <Compile Remove="UserDTOIdComparer - Copy %284%29.cs" />
+  </ItemGroup>
 
 </Project>

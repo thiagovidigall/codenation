@@ -73,5 +73,40 @@ namespace Codenation.Challenge
             return service;
         }
 
+        //public Mock<ICompanyService> FakeCompanyService()
+        //{
+        //    var service = new Mock<ICompanyService>();
+
+        //    service.Setup(x => x.FindById(It.IsAny<int>())).
+        //        Returns((int id) => Get<Company>().FirstOrDefault(x => x.Id == id));
+
+        //    service.Setup(x => x.Save(It.IsAny<Company>())).
+        //        Returns((Company comp) => {
+        //            if (comp.Id == 0)
+        //                comp.Id = 999;
+        //            return comp;
+        //        });
+
+        //    return service;
+        //}
+
+        //public Mock<IChallengeService> FakeChallengeService()
+        //{
+        //    var service = new Mock<IChallengeService>();
+
+        //    service.Setup(x => x.FindByAccelerationIdAndUserId(It.IsAny<int>(), It.IsAny<int>())).
+        //        Returns((int id) => Get<Models.Challenge>().FirstOrDefault(x => x.Id == id));
+
+        //    service.Setup(x => x.Save(It.IsAny<Models.Challenge>())).
+        //        Returns((Models.Challenge challenge) =>
+        //        {
+        //            if (challenge.Id == 0)
+        //                challenge.Id = 999;
+        //            return challenge;
+        //        });
+
+        //    return service;
+        //}
+
     }    
 }
