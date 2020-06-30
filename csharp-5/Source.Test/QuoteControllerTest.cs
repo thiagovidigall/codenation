@@ -49,5 +49,19 @@ namespace Codenation.Challenge
             Assert.IsType<NotFoundResult>(actual.Result);
         }
 
+
+
+        //[Fact]
+        //public void Should_Returns_Random_Quote_When_Get_Any_By_Actor()
+        //{
+
+        //}
+
+        //[Fact]
+        //public void Should_Returns_Random_Quote_When_Get_Any()
+        //{
+
+        //}
+
     }
 }

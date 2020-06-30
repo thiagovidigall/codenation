@@ -32,7 +32,7 @@ namespace Codenation.Challenge
             this.fakeContext = new Mock<ScriptsContext>();            
             this.fakeContext.Setup(x => x.Quotes).Returns(fakeDbSet.Object);
         }
-
+                    
         [Fact]
         public void Should_Returns_Null_When_Get_Any_Quote_By_Non_Exists_Actor()
         {
@@ -41,7 +41,21 @@ namespace Codenation.Challenge
             Assert.Null(actual);
         }
 
+        [Fact]
+        public void Should_Returns_Any_Quote_When_Get_Any_Quote_By_Actor()
+        {
+            var fakeService = new QuoteService(fakeContext.Object, new RandomService());            
+            var actual = fakeService.GetAnyQuote("Eric");
+            Assert.NotNull(actual);
+        }
 
+        [Fact]
+        public void Should_Returns_Any_Quote_When_Get_Any_Quote()
+        {
+            var fakeService = new QuoteService(fakeContext.Object, new RandomService());
+            var actual = fakeService.GetAnyQuote();
+            Assert.NotNull(actual);
+        }
     }
 
 }

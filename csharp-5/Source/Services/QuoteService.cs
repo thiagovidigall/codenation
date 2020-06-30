@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Codenation.Challenge.Models;
 
 namespace Codenation.Challenge.Services
@@ -17,12 +19,22 @@ namespace Codenation.Challenge.Services
 
         public Quote GetAnyQuote()
         {
-            throw new System.NotImplementedException();
+            var quotesFilter = _context.Quotes.Where(x => x.Actor != null).ToList();
+            if (quotesFilter.Count == 0)
+                return null;
+            
+            return quotesFilter[_randomService.RandomInteger(_context.Quotes.Count())];
         }
 
         public Quote GetAnyQuote(string actor)
         {
-            throw new System.NotImplementedException();
+            var quotesFilter = _context.Quotes.Where(x => (x.Actor ?? "").ToLower().Contains(actor.ToLower())).ToList();
+
+            if (quotesFilter.Count == 0)
+                return null;
+            
+            var randomId = _randomService.RandomInteger(quotesFilter.Count());
+            return quotesFilter[randomId];
         }
     }
 }
